@@ -1,0 +1,19 @@
+@scrider/editor-core
+Copyright (c) 2025-2026 Pavel Sukharev
+
+This product is licensed under the MIT License.
+See the LICENSE file for details.
+
+
+Runtime Dependencies
+====================
+
+1. @scrider/delta
+   Copyright (c) 2025-2026 Pavel Sukharev
+   Licensed under the MIT License
+   https://github.com/scrider-apps/scrider-delta
+
+2. @scrider/formatter
+   Copyright (c) 2025-2026 Pavel Sukharev
+   Licensed under the MIT License
+   https://github.com/scrider-apps/scride-formatter

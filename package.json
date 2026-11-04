@@ -1,0 +1,83 @@
+{
+  "name": "@scrider/editor-core",
+  "version": "1.0.0",
+  "description": "Framework-agnostic editor core for Delta documents",
+  "author": "Pavel Sukharev",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src tests",
+    "lint:fix": "eslint src tests --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "typecheck": "tsc --noEmit",
+    "prepack": "pnpm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scrider-apps/scrider-editor-core.git"
+  },
+  "homepage": "https://github.com/scrider-apps/scrider-editor-core#readme",
+  "bugs": {
+    "url": "https://github.com/scrider-apps/scrider-editor-core/issues"
+  },
+  "keywords": [
+    "delta",
+    "rich-text",
+    "editor",
+    "editor-core",
+    "headless",
+    "commands",
+    "undo-redo",
+    "text-editor"
+  ],
+  "dependencies": {
+    "@scrider/delta": "^1.1.0",
+    "@scrider/formatter": "^1.14.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^25.2.3",
+    "@vitest/coverage-v8": "^1.2.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "jsdom": "^25.0.0",
+    "prettier": "^3.2.0",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "remark-parse": "^11.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0",
+    "typescript-eslint": "^8.0.0",
+    "unified": "^11.0.5",
+    "vitest": "^1.2.0"
+  }
+}

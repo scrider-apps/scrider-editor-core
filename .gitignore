@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+
+# npm pack artifacts (local link / override tarballs)
+*.tgz
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+_tmp_*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
