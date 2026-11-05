@@ -111,7 +111,7 @@ export const defaultCommands: Record<string, Command> = {
  * - If the command is not found, returns null
  *
  * Side effects (if any) are NOT executed here — the caller is
- * responsible for running result.sideEffect() after applying the state.
+ * responsible for running result.sideEffect(ctx) after applying the state.
  */
 export function executeCommand(
   commands: Record<string, Command>,

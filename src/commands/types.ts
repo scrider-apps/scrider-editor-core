@@ -1,13 +1,18 @@
 import type { EditorState } from '../state/EditorState';
+import type { PluginContext } from '../plugin/types';
 
 /**
  * Result of a command that may carry a deferred side effect.
  * The state transformation remains pure; the side effect executes
  * after the new state is applied.
+ *
+ * The view layer passes its context to `sideEffect`, so the effect acts on the
+ * editor that ran the command (a view context may add members such as
+ * `openPopover`). Headless callers may omit it.
  */
 export interface CommandResult {
   state: EditorState;
-  sideEffect?: () => void | Promise<void>;
+  sideEffect?: (ctx?: PluginContext) => void | Promise<void>;
 }
 
 /**

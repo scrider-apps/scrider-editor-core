@@ -138,6 +138,21 @@ describe('executeCommand', () => {
     void result.sideEffect?.();
     expect(sideEffectFn).toHaveBeenCalledOnce();
   });
+
+  it('side effect receives the context of the editor that ran the command', () => {
+    const opened: string[] = [];
+    const openCmd: Command = (s) => ({
+      state: s,
+      sideEffect: (ctx): void => {
+        opened.push(String(ctx?.getState().delta.length()));
+      },
+    });
+    const state = makeState();
+    const result = executeCommand({ openPopover: openCmd }, 'openPopover', state)!;
+
+    void result.sideEffect?.({ executeCommand: () => {}, getState: () => state });
+    expect(opened).toEqual([String(state.delta.length())]);
+  });
 });
 
 describe('isCommandResult', () => {
