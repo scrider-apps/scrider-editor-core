@@ -27,6 +27,8 @@ npm install @scrider/editor-core @scrider/delta @scrider/formatter
 pnpm add @scrider/editor-core @scrider/delta @scrider/formatter
 ```
 
+`@scrider/delta` and `@scrider/formatter` are peer dependencies: the application picks their versions, and core, the view layer and plugins share one copy of each, so `Delta`, `Registry` and metadata types match. The same applies on a Node.js server.
+
 `handlePaste` parses HTML through `@scrider/formatter`. In the browser it uses the native DOM parser; in Node.js install `jsdom`:
 
 ```bash

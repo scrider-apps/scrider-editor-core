@@ -7,17 +7,16 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@scrider/delta':
-        specifier: ^1.1.0
-        version: 1.1.0
-      '@scrider/formatter':
-        specifier: ^1.14.0
-        version: 1.14.0(jsdom@25.0.1(supports-color@7.2.0))(remark-gfm@4.0.1(supports-color@7.2.0))(remark-math@6.0.0(supports-color@7.2.0))(remark-parse@11.0.0(supports-color@7.2.0))(remark-stringify@11.0.0)(unified@11.0.5)
     devDependencies:
       '@eslint/js':
         specifier: ^9.0.0
         version: 9.39.5
+      '@scrider/delta':
+        specifier: ^1.1.0
+        version: 1.1.0
+      '@scrider/formatter':
+        specifier: ^1.14.1
+        version: 1.14.1(jsdom@25.0.1(supports-color@7.2.0))(remark-gfm@4.0.1(supports-color@7.2.0))(remark-math@6.0.0(supports-color@7.2.0))(remark-parse@11.0.0(supports-color@7.2.0))(remark-stringify@11.0.0)(unified@11.0.5)
       '@types/node':
         specifier: ^25.2.3
         version: 25.9.9
@@ -645,8 +644,8 @@ packages:
     resolution: {integrity: sha512-QPwWtmpGlRusyKO77uTU1kzKTR69jhJt9kVdgSx6OKoJLVuOmGZHGNhv5EHxuDOej6iCDywrwWJI+QnF4u/xug==}
     engines: {node: '>=18.0.0'}
 
-  '@scrider/formatter@1.14.0':
-    resolution: {integrity: sha512-nHjBodLjQ9zRLbJCvmWOKGmY6/MnkSVeCDtelwv5eWY51HbUnxn+RYA79tOnC50jWNZwnhGALuM4pxAKP4eT1Q==}
+  '@scrider/formatter@1.14.1':
+    resolution: {integrity: sha512-f7eO4ceXC+FBnw8/hxOh8+qKqigm9HQ324oWTkcLjBIibhwLB/tdvtDoL4CVYluzod3dsAaLHENJGhqbb2XtJw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       jsdom: '>=20.0.0'
@@ -2337,7 +2336,7 @@ snapshots:
 
   '@scrider/delta@1.1.0': {}
 
-  '@scrider/formatter@1.14.0(jsdom@25.0.1(supports-color@7.2.0))(remark-gfm@4.0.1(supports-color@7.2.0))(remark-math@6.0.0(supports-color@7.2.0))(remark-parse@11.0.0(supports-color@7.2.0))(remark-stringify@11.0.0)(unified@11.0.5)':
+  '@scrider/formatter@1.14.1(jsdom@25.0.1(supports-color@7.2.0))(remark-gfm@4.0.1(supports-color@7.2.0))(remark-math@6.0.0(supports-color@7.2.0))(remark-parse@11.0.0(supports-color@7.2.0))(remark-stringify@11.0.0)(unified@11.0.5)':
     dependencies:
       '@scrider/delta': 1.1.0
     optionalDependencies:

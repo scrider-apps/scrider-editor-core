@@ -1,6 +1,6 @@
 {
   "name": "@scrider/editor-core",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Framework-agnostic editor core for Delta documents",
   "author": "Pavel Sukharev",
   "license": "MIT",
@@ -59,12 +59,14 @@
     "undo-redo",
     "text-editor"
   ],
-  "dependencies": {
+  "peerDependencies": {
     "@scrider/delta": "^1.1.0",
     "@scrider/formatter": "^1.14.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
+    "@scrider/delta": "^1.1.0",
+    "@scrider/formatter": "^1.14.1",
     "@types/node": "^25.2.3",
     "@vitest/coverage-v8": "^1.2.0",
     "eslint": "^9.0.0",
