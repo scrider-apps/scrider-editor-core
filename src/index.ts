@@ -303,7 +303,9 @@ export type {
   ToolbarGroup,
   ToolbarConfig,
   ToolbarConfigInput,
+  CompactResolve,
   CompactLevel,
+  CompactToolbarOptions,
   GlobalResolve,
 } from './registry';
 export {

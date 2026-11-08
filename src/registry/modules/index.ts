@@ -21,6 +21,8 @@ export {
   sortGroupsByOrder,
   type GlobalResolve,
   defaultToolbar,
+  type CompactResolve,
   type CompactLevel,
+  type CompactToolbarOptions,
   compactToolbarConfig,
 } from './toolbar';

@@ -27,5 +27,9 @@ export {
 
 export { defaultToolbar } from './defaultToolbar';
 
-export type { CompactLevel } from './compactToolbarConfig';
+export type {
+  CompactResolve,
+  CompactLevel,
+  CompactToolbarOptions,
+} from './compactToolbarConfig';
 export { compactToolbarConfig } from './compactToolbarConfig';
