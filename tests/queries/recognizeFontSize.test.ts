@@ -33,6 +33,19 @@ describe('recognizeFontSize', () => {
     expect(recognizeFontSize({ header: 1 }, { headerSizePreset: 'githubEm' })).toBe('32pt');
   });
 
+  it('returns document base size for body text without inline size', () => {
+    const settings = { headerSizePreset: 'scrider', baseFontSize: '14pt' } as const;
+    expect(recognizeFontSize({}, settings)).toBe('14pt');
+    expect(recognizeFontSize({ size: 'inherit' }, settings)).toBe('14pt');
+    expect(recognizeFontSize({ size: '10pt' }, settings)).toBe('10pt');
+  });
+
+  it('keeps preset heading size when document base size is set', () => {
+    expect(
+      recognizeFontSize({ header: 1 }, { headerSizePreset: 'scrider', baseFontSize: '14pt' }),
+    ).toBe('32pt');
+  });
+
   it('is exported from queries index', () => {
     expect(recognizeFromIndex({ header: 2 }, { headerSizePreset: 'word' })).toBe('18pt');
   });

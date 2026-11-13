@@ -11,12 +11,18 @@ import {
 export interface RecognizeFontSizeSettings {
   /** Active size-grid preset from Settings / host (Scrider when Auto-only). */
   headerSizePreset: HeaderSizePresetName;
+  /**
+   * Document body size (`scrider-metadata.defaultFontSize`, e.g. `14pt`).
+   * Omitted → {@link BASE_FONT_SIZE_PT}. Headings ignore it: their size comes
+   * from the preset grid.
+   */
+  baseFontSize?: string;
 }
 
 /**
  * Resolve the effective font size for toolbar display when inline `size`
- * is absent (Auto). Body text → {@link BASE_FONT_SIZE_PT}; headings →
- * preset grid or Scrider implicit defaults.
+ * is absent (Auto). Body text → document size or {@link BASE_FONT_SIZE_PT};
+ * headings → preset grid or Scrider implicit defaults.
  *
  * Explicit inline `size` in Delta is returned as-is.
  */
@@ -46,10 +52,11 @@ export function recognizeFontSize(
     }
   }
 
+  const base = settings.baseFontSize || BASE_FONT_SIZE_PT;
   const headerLevel = formats.header;
   if (!isHeaderLevel(headerLevel)) {
-    return BASE_FONT_SIZE_PT;
+    return base;
   }
 
-  return getHeaderSize(headerLevel, settings.headerSizePreset) ?? BASE_FONT_SIZE_PT;
+  return getHeaderSize(headerLevel, settings.headerSizePreset) ?? base;
 }

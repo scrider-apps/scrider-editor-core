@@ -111,23 +111,13 @@ export const DEFAULT_HEADER_SIZE_PRESET: HeaderSizePresetName = 'scrider';
 export const HEADER_DEFAULT_SIZES: HeaderSizeMap = HEADER_SIZE_PRESETS[DEFAULT_HEADER_SIZE_PRESET];
 
 /**
- * Default font family for heading blocks. Matches `--scrider-font-family`
- * baseline — headings inherit the body font unless an explicit inline
- * `font` attribute is set on heading text.
- */
-export const HEADER_DEFAULT_FONT = 'Inter';
-
-/**
  * Base body font size — the rendered size when no inline `size`
- * attribute is set. This is the value that the toolbar's "12" option
- * represents (with `args: [null]`, `formatValue: null`).
+ * attribute is set and the document has no `defaultFontSize`
+ * (see `RecognizeFontSizeSettings.baseFontSize`).
  *
  * Used by toolbar enrichment: if a preset's heading-default size equals
- * this base, we **skip** injection — because the visual result is the
- * same as having no `size` attribute, and the "12" (null) option will
- * already light up in the dropdown. Injecting `'12pt'` instead would
- * leave no option matching (label is "12" with `formatValue: null`, not
- * `'12pt'`), and the dropdown would fall back to its default label.
+ * this base, we **skip** injection — the visual result is the same as
+ * having no `size` attribute.
  */
 export const BASE_FONT_SIZE_PT = '12pt';
 

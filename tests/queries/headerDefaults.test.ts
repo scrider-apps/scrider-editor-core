@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest';
 import {
   HEADER_SIZE_PRESETS,
   HEADER_DEFAULT_SIZES,
-  HEADER_DEFAULT_FONT,
   DEFAULT_HEADER_SIZE_PRESET,
   getHeaderSize,
   getHeaderDefaultSize,
@@ -43,13 +42,6 @@ describe('headerDefaults', () => {
 
     it('is frozen', () => {
       expect(Object.isFrozen(HEADER_DEFAULT_SIZES)).toBe(true);
-    });
-  });
-
-  describe('HEADER_DEFAULT_FONT', () => {
-    it('is a non-empty string', () => {
-      expect(typeof HEADER_DEFAULT_FONT).toBe('string');
-      expect(HEADER_DEFAULT_FONT.length).toBeGreaterThan(0);
     });
   });
 

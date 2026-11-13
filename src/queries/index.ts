@@ -16,7 +16,6 @@ export { canUndo, canRedo } from './history';
 export {
   HEADER_SIZE_PRESETS,
   HEADER_DEFAULT_SIZES,
-  HEADER_DEFAULT_FONT,
   BASE_FONT_SIZE_PT,
   DEFAULT_HEADER_SIZE_PRESET,
   isHeaderLevel,
