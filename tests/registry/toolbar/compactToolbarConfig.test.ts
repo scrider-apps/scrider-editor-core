@@ -70,6 +70,39 @@ describe('compactToolbarConfig, group level', () => {
     expect(resolve({ extends: 'base', ...compact })).toEqual(full);
   });
 
+  it('a group tuned by its row compacts to its name in that row', () => {
+    const { resolve: base } = setup();
+    const resolve = (input: Record<string, unknown>): ToolbarConfig => {
+      const config = base(input);
+      if (!config.groups.some((g) => g.name === 'font')) return config;
+      const groups = config.groups.map((g) => (g.name === 'history' ? { ...g, priority: 3 } : g));
+      return { ...config, groups };
+    };
+    const full = resolve({ configuration: 'base' });
+    expect(full.groups.find((g) => g.name === 'history')?.priority).toBe(3);
+
+    const compact = compactToolbarConfig(full, 'group', { resolve });
+    expect(compact.groups).toContain('history');
+    expect(compact.groups).toContain('font');
+    expect(resolve({ ...compact })).toEqual(full);
+  });
+
+  it('a group that only resolves back with its neighbours stays an object without them', () => {
+    const { resolve: base } = setup();
+    const resolve = (input: Record<string, unknown>): ToolbarConfig => {
+      const config = base(input);
+      const groups = config.groups.map((g) =>
+        g.name === 'history' && config.groups.length > 1 ? { ...g, priority: 3 } : g,
+      );
+      return { ...config, groups };
+    };
+    const full = resolve({ groups: ['history'] });
+    const tuned = { groups: [{ ...full.groups[0]!, priority: 3 }] };
+    const compact = compactToolbarConfig(tuned, 'group', { resolve });
+    expect(compact.groups).not.toContain('history');
+    expect(resolve({ ...compact })).toEqual(tuned);
+  });
+
   it('a built-in name with other items keeps its items', () => {
     const { resolve } = setup();
     const block = { ...GROUP_KEYS.block!, items: [...GROUP_KEYS.block!.items!, sayHello] };

@@ -12,8 +12,8 @@ export type CompactResolve = (input: Record<string, unknown>) => ToolbarConfig;
 export interface CompactToolbarOptions {
   /**
    * With it an item or a group becomes its name only when the name resolves back
-   * to the same object. Without it only built-in groups compact to their names,
-   * and items compact by name alone.
+   * to the same object; a group is checked in its row. Without it only built-in
+   * groups compact to their names, and items compact by name alone.
    */
   resolve?: CompactResolve;
 }
@@ -69,16 +69,33 @@ function compactGroupItems(group: ToolbarGroup, resolve?: CompactResolve): Toolb
   return { ...group, items: items as ToolbarItem[] };
 }
 
-/**
- * The group compacts to its name only when that name resolves back to the same
- * group. Without `resolve` only built-in group keys are checked.
- */
-function groupKey(group: ToolbarGroup, resolve?: CompactResolve): string | null {
+/** Without `resolve` a group compacts to its name when it equals the built-in group key. */
+function builtInGroupKey(group: ToolbarGroup): string | null {
   if (!group.name) return null;
-  if (resolve) return same(resolveGroups([group.name], resolve)?.[0], group) ? group.name : null;
   const registered = GROUP_KEYS[group.name];
   if (!registered) return null;
   return same(compactGroupItems(group), compactGroupItems(registered)) ? group.name : null;
+}
+
+/**
+ * A group becomes its name only when the whole row still resolves to the same
+ * groups. The resolver may tune a group by its neighbours (priority in a full
+ * row), so the name is checked in place, not alone.
+ */
+function compactGroupsInRow(
+  groups: ToolbarGroup[],
+  resolve: CompactResolve,
+): (string | ToolbarGroup)[] {
+  const row: (string | ToolbarGroup)[] = groups.map((g) => compactGroupItems(g, resolve));
+  const target = resolveGroups(row, resolve);
+  if (!target) return row;
+  groups.forEach((group, i) => {
+    if (!group.name) return;
+    const candidate = row.slice();
+    candidate[i] = group.name;
+    if (same(resolveGroups(candidate, resolve), target)) row[i] = group.name;
+  });
+  return row;
 }
 
 function compactGroupArray(
@@ -87,7 +104,8 @@ function compactGroupArray(
   resolve?: CompactResolve,
 ): (string | ToolbarGroup)[] {
   if (level === 'group') {
-    return groups.map((g) => groupKey(g, resolve) ?? compactGroupItems(g, resolve));
+    if (resolve) return compactGroupsInRow(groups, resolve);
+    return groups.map((g) => builtInGroupKey(g) ?? compactGroupItems(g));
   }
   if (level === 'button') {
     return groups.map((g) => compactGroupItems(g, resolve));
