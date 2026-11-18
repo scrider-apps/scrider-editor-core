@@ -5,6 +5,13 @@ export const NON_INHERITABLE: ReadonlySet<string> = new Set([
   // Box belongs to the level-0 title, not to the line Enter splits off.
   'accordion-width',
   'accordion-float',
+  // Quiz box and the reader's attempt stay on the line that owns them.
+  'quiz-width',
+  'quiz-float',
+  'quiz-pick',
+  'quiz-phase',
+  'quiz-limit',
+  'quiz-time',
 ]);
 
 /** All recognised block-level attribute names. */
@@ -28,6 +35,12 @@ export const BLOCK_FORMATS: readonly string[] = [
   'quiz-id',
   'quiz-role',
   'quiz-view',
+  'quiz-width',
+  'quiz-float',
+  'quiz-pick',
+  'quiz-phase',
+  'quiz-limit',
+  'quiz-time',
   'dialog-id',
   'dialog-role',
   'dialog-view',
