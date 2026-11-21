@@ -94,6 +94,48 @@ describe('splitBlock', () => {
     ]);
   });
 
+  it('keeps a dialog or voice box on the title and not on the line Enter opens', () => {
+    const dialog = new Delta().insert('Title').insert('\n', {
+      'dialog-id': 'd1',
+      'dialog-role': 'title',
+      'dialog-width': '280',
+      'dialog-float': 'right',
+    });
+    expect(splitBlock(makeState(dialog, 5)).delta.ops).toEqual([
+      { insert: 'Title' },
+      {
+        insert: '\n',
+        attributes: {
+          'dialog-id': 'd1',
+          'dialog-role': 'title',
+          'dialog-width': '280',
+          'dialog-float': 'right',
+        },
+      },
+      { insert: '\n', attributes: { 'dialog-id': 'd1', 'dialog-role': 'title' } },
+    ]);
+
+    const voice = new Delta().insert('Title').insert('\n', {
+      'voice-id': 'v1',
+      'voice-role': 'title',
+      'voice-width': '320',
+      'voice-float': 'left',
+    });
+    expect(splitBlock(makeState(voice, 5)).delta.ops).toEqual([
+      { insert: 'Title' },
+      {
+        insert: '\n',
+        attributes: {
+          'voice-id': 'v1',
+          'voice-role': 'title',
+          'voice-width': '320',
+          'voice-float': 'left',
+        },
+      },
+      { insert: '\n', attributes: { 'voice-id': 'v1', 'voice-role': 'title' } },
+    ]);
+  });
+
   it('new line after header loses header', () => {
     const delta = new Delta().insert('Title').insert('\n', { header: 1 });
     const state = makeState(delta, 5); // "Title|"

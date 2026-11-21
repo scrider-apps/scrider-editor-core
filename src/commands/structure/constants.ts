@@ -12,6 +12,11 @@ export const NON_INHERITABLE: ReadonlySet<string> = new Set([
   'quiz-phase',
   'quiz-limit',
   'quiz-time',
+  // Dialog and Voice box stays on the title, not on the line Enter opens.
+  'dialog-width',
+  'dialog-float',
+  'voice-width',
+  'voice-float',
 ]);
 
 /** All recognised block-level attribute names. */
@@ -44,9 +49,13 @@ export const BLOCK_FORMATS: readonly string[] = [
   'dialog-id',
   'dialog-role',
   'dialog-view',
+  'dialog-width',
+  'dialog-float',
   'voice-id',
   'voice-role',
   'voice-view',
+  'voice-width',
+  'voice-float',
 ];
 
 /**

@@ -71,6 +71,32 @@ describe('splitTextOpsAtNewlines', () => {
     ]);
   });
 
+  it('keeps a dialog or voice box on the newline, not on the text', () => {
+    const ops = splitTextOpsAtNewlines([
+      {
+        insert: 'Title\n',
+        attributes: { 'dialog-id': 'd1', 'dialog-width': '280', 'dialog-float': 'right' },
+      },
+      {
+        insert: 'Topic\n',
+        attributes: { 'voice-id': 'v1', 'voice-width': '320', 'voice-float': 'left' },
+      },
+    ]);
+
+    expect(ops).toEqual([
+      { insert: 'Title' },
+      {
+        insert: '\n',
+        attributes: { 'dialog-id': 'd1', 'dialog-width': '280', 'dialog-float': 'right' },
+      },
+      { insert: 'Topic' },
+      {
+        insert: '\n',
+        attributes: { 'voice-id': 'v1', 'voice-width': '320', 'voice-float': 'left' },
+      },
+    ]);
+  });
+
   it('preserves total delta length', () => {
     const before = new Delta([{ insert: 'Line1\nLine2\nLine3' }]);
     const after = new Delta(splitTextOpsAtNewlines(before.ops));

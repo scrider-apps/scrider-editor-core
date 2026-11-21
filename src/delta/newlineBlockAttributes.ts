@@ -56,9 +56,13 @@ export const NEWLINE_BLOCK_ATTR_KEYS: ReadonlySet<string> = new Set([
   'dialog-id',
   'dialog-role',
   'dialog-view',
+  'dialog-width',
+  'dialog-float',
   'voice-id',
   'voice-role',
   'voice-view',
+  'voice-width',
+  'voice-float',
 ]);
 
 export function isNewlineBlockAttrKey(key: string): boolean {
