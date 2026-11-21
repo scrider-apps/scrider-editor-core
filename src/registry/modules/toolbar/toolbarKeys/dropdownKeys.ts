@@ -298,6 +298,13 @@ export const DROPDOWN_KEYS: Record<string, ToolbarDropdownItem> = {
         formatValue: 'Roboto',
       },
       {
+        label: 'Segoe UI Variable',
+        command: 'setFont',
+        args: ['Segoe UI Variable'],
+        format: 'font',
+        formatValue: 'Segoe UI Variable',
+      },
+      {
         label: 'Tahoma',
         command: 'setFont',
         args: ['Tahoma'],
