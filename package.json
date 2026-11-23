@@ -1,6 +1,6 @@
 {
   "name": "@scrider/editor-core",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "description": "Framework-agnostic editor core for Delta documents",
   "author": "Pavel Sukharev",
   "license": "MIT",
@@ -61,12 +61,12 @@
   ],
   "peerDependencies": {
     "@scrider/delta": "^1.1.0",
-    "@scrider/formatter": "^1.14.0"
+    "@scrider/formatter": "^1.24.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
     "@scrider/delta": "^1.1.0",
-    "@scrider/formatter": "^1.14.1",
+    "@scrider/formatter": "^1.24.0",
     "@types/node": "^25.2.3",
     "@vitest/coverage-v8": "^1.2.0",
     "eslint": "^9.0.0",

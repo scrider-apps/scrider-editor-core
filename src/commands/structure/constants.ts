@@ -1,3 +1,5 @@
+import { defaultBlockFormats } from '@scrider/formatter';
+
 /** Block attributes NOT inherited by the new line on splitBlock. */
 export const NON_INHERITABLE: ReadonlySet<string> = new Set([
   'header',
@@ -19,7 +21,18 @@ export const NON_INHERITABLE: ReadonlySet<string> = new Set([
   'voice-float',
 ]);
 
-/** All recognised block-level attribute names. */
+/**
+ * Interactive plates: every key the formatter schema registers for an accordion,
+ * quiz, dialog or voice line (role, box, attempt, language, model, voice…).
+ */
+const PLATE_BLOCK_FORMATS: readonly string[] = defaultBlockFormats
+  .map((format) => format.name)
+  .filter((name) => /^(accordion|quiz|dialog|voice)(-|$)/.test(name));
+
+/**
+ * All recognised block-level attribute names. Ctrl+Enter clears them from the
+ * new line, and they never become inline marks.
+ */
 export const BLOCK_FORMATS: readonly string[] = [
   'header',
   'blockquote',
@@ -32,30 +45,7 @@ export const BLOCK_FORMATS: readonly string[] = [
   'list-start',
   'indent',
   'align',
-  'accordion',
-  'accordion-collapsed',
-  'accordion-body',
-  'accordion-width',
-  'accordion-float',
-  'quiz-id',
-  'quiz-role',
-  'quiz-view',
-  'quiz-width',
-  'quiz-float',
-  'quiz-pick',
-  'quiz-phase',
-  'quiz-limit',
-  'quiz-time',
-  'dialog-id',
-  'dialog-role',
-  'dialog-view',
-  'dialog-width',
-  'dialog-float',
-  'voice-id',
-  'voice-role',
-  'voice-view',
-  'voice-width',
-  'voice-float',
+  ...PLATE_BLOCK_FORMATS,
 ];
 
 /**

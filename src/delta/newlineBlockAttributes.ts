@@ -1,5 +1,6 @@
 import { Delta, isInsert, isTextInsert } from '@scrider/delta';
 import type { AttributeMap, Op } from '@scrider/delta';
+import { defaultBlockFormats } from '@scrider/formatter';
 
 /** Per-paragraph first-line indent (Word paste / toolbar). */
 export const SCRIDER_TEXT_INDENT_KEY = 'scrider-text-indent';
@@ -12,57 +13,33 @@ export const LIST_START_KEY = 'list-start';
 export const DEFAULT_SCRIDER_TEXT_INDENT = '1.25cm';
 
 /**
- * Block-level keys stored on `\n` ops — the single source consumed by
- * `commands/structure.ts` and `queries/formats.ts` (broader than `BLOCK_FORMATS`
- * because it also includes table/embed markers).
+ * Block keys of the editor that the formatter schema does not register: table
+ * and embed markers, the paragraph presentation baked in by Word paste or
+ * Settings, the code block id and the start of an ordered run.
  */
-export const NEWLINE_BLOCK_ATTR_KEYS: ReadonlySet<string> = new Set([
-  'header',
-  'header-id',
-  'list',
+export const CORE_ONLY_BLOCK_ATTR_KEYS: readonly string[] = [
   LIST_START_KEY,
-  'blockquote',
-  'code-block',
   'code-block-id',
-  'code-block-width',
-  'code-block-float',
-  'code-block-height',
-  'align',
-  'indent',
-  'table-row',
-  'table-col',
-  'table-header',
-  'table-col-align',
   '__divider',
   '__blockEmbed',
   SCRIDER_TEXT_INDENT_KEY,
   'scrider-line-height',
   'scrider-margin-after',
   'scrider-margin-before',
-  'accordion',
-  'accordion-collapsed',
-  'accordion-body',
-  'accordion-width',
-  'accordion-float',
-  'quiz-id',
-  'quiz-role',
-  'quiz-view',
-  'quiz-width',
-  'quiz-float',
-  'quiz-pick',
-  'quiz-phase',
-  'quiz-limit',
-  'quiz-time',
-  'dialog-id',
-  'dialog-role',
-  'dialog-view',
-  'dialog-width',
-  'dialog-float',
-  'voice-id',
-  'voice-role',
-  'voice-view',
-  'voice-width',
-  'voice-float',
+];
+
+/**
+ * Block-level keys stored on `\n` ops — the single source consumed by
+ * `commands/structure.ts` and `queries/formats.ts` (broader than `BLOCK_FORMATS`
+ * because it also includes table/embed markers).
+ *
+ * Every block format of the formatter schema is one, so a key the formatter
+ * registers (a plate's language, model, voice…) survives a line patch without
+ * a new release of core.
+ */
+export const NEWLINE_BLOCK_ATTR_KEYS: ReadonlySet<string> = new Set([
+  ...defaultBlockFormats.map((format) => format.name),
+  ...CORE_ONLY_BLOCK_ATTR_KEYS,
 ]);
 
 export function isNewlineBlockAttrKey(key: string): boolean {
