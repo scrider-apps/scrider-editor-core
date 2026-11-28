@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 import { Delta } from '@scrider/delta';
 
 import { BLOCK_FORMATS } from '../../src/commands/structure/constants';
-import { exitBlock } from '../../src/commands/structure';
+import { exitBlock, splitBlock } from '../../src/commands/structure';
 import {
   applyAttributePatchesAtNewlines,
   NEWLINE_BLOCK_ATTR_KEYS,
@@ -150,6 +150,97 @@ describe('block keys from the formatter schema', () => {
       { insert: 'Hi' },
       { insert: '\n', attributes: cue },
       { insert: '\n' },
+    ]);
+  });
+});
+
+const SOUNDBOX_KEYS_OF_FORMATTER_1_25 = [
+  'soundbox-id',
+  'soundbox-src',
+  'soundbox-model',
+  'soundbox-voice',
+  'soundbox-lang',
+  'soundbox-hash',
+  'soundbox-width',
+  'soundbox-float',
+];
+
+describe('soundbox block keys', () => {
+  const first = {
+    'soundbox-id': 's1',
+    'soundbox-src': '/api/media/a',
+    'soundbox-model': 'yandex/yandex-tts',
+    'soundbox-voice': 'marina',
+    'soundbox-lang': 'en',
+    'soundbox-hash': 'a91f03c2',
+    'soundbox-width': '320',
+    'soundbox-float': 'right',
+  };
+
+  it('knows the soundbox keys of formatter 1.25 and never takes them for inline marks', () => {
+    for (const key of SOUNDBOX_KEYS_OF_FORMATTER_1_25) {
+      expect(NEWLINE_BLOCK_ATTR_KEYS.has(key), key).toBe(true);
+      expect(BLOCK_FORMATS.includes(key), key).toBe(true);
+    }
+  });
+
+  it('keeps the keys of a soundbox through a patch of another line', () => {
+    const doc = new Delta()
+      .insert('One')
+      .insert('\n', first)
+      .insert('Two')
+      .insert('\n', { 'soundbox-id': 's1' })
+      .insert('Fold')
+      .insert('\n', { accordion: 0 });
+    const patched = applyAttributePatchesAtNewlines(
+      doc,
+      new Map([[12, { 'accordion-collapsed': true }]]),
+    );
+    expect(patched.ops).toEqual([
+      { insert: 'One' },
+      { insert: '\n', attributes: first },
+      { insert: 'Two' },
+      { insert: '\n', attributes: { 'soundbox-id': 's1' } },
+      { insert: 'Fold' },
+      { insert: '\n', attributes: { accordion: 0, 'accordion-collapsed': true } },
+    ]);
+  });
+
+  it('Enter in the first line keeps the id on the new line and the rest before the caret', () => {
+    const delta = new Delta().insert('Hello world').insert('\n', first);
+    const result = splitBlock(createEditorState({ delta, selection: { index: 5, length: 0 } }));
+    expect(result.delta.ops).toEqual([
+      { insert: 'Hello' },
+      { insert: '\n', attributes: first },
+      { insert: ' world' },
+      { insert: '\n', attributes: { 'soundbox-id': 's1' } },
+    ]);
+  });
+
+  it('Enter at the start of the first line opens an empty line of the block above it', () => {
+    const delta = new Delta().insert('Hello').insert('\n', first);
+    const result = splitBlock(createEditorState({ delta, selection: { index: 0, length: 0 } }));
+    expect(result.delta.ops).toEqual([
+      { insert: '\n', attributes: { 'soundbox-id': 's1' } },
+      { insert: 'Hello' },
+      { insert: '\n', attributes: first },
+    ]);
+  });
+
+  it('Enter in a later line carries the id only', () => {
+    const delta = new Delta()
+      .insert('One')
+      .insert('\n', first)
+      .insert('Two words')
+      .insert('\n', { 'soundbox-id': 's1' });
+    const result = splitBlock(createEditorState({ delta, selection: { index: 7, length: 0 } }));
+    expect(result.delta.ops).toEqual([
+      { insert: 'One' },
+      { insert: '\n', attributes: first },
+      { insert: 'Two' },
+      { insert: '\n', attributes: { 'soundbox-id': 's1' } },
+      { insert: ' words' },
+      { insert: '\n', attributes: { 'soundbox-id': 's1' } },
     ]);
   });
 });

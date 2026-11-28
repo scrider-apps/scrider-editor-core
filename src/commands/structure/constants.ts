@@ -19,15 +19,23 @@ export const NON_INHERITABLE: ReadonlySet<string> = new Set([
   'dialog-float',
   'voice-width',
   'voice-float',
+  // SoundBox: every line keeps the id, the sound and the rest stay on the first line.
+  'soundbox-src',
+  'soundbox-model',
+  'soundbox-voice',
+  'soundbox-lang',
+  'soundbox-hash',
+  'soundbox-width',
+  'soundbox-float',
 ]);
 
 /**
  * Interactive plates: every key the formatter schema registers for an accordion,
- * quiz, dialog or voice line (role, box, attempt, language, model, voice…).
+ * quiz, dialog, voice or soundbox line (role, box, attempt, language, model, voice…).
  */
 const PLATE_BLOCK_FORMATS: readonly string[] = defaultBlockFormats
   .map((format) => format.name)
-  .filter((name) => /^(accordion|quiz|dialog|voice)(-|$)/.test(name));
+  .filter((name) => /^(accordion|quiz|dialog|voice|soundbox)(-|$)/.test(name));
 
 /**
  * All recognised block-level attribute names. Ctrl+Enter clears them from the

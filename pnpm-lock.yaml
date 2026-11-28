@@ -15,8 +15,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0
       '@scrider/formatter':
-        specifier: ^1.24.0
-        version: 1.24.0(@scrider/delta@1.1.0)(jsdom@25.0.1(supports-color@7.2.0))(remark-gfm@4.0.1(supports-color@7.2.0))(remark-math@6.0.0(supports-color@7.2.0))(remark-parse@11.0.0(supports-color@7.2.0))(remark-stringify@11.0.0)(unified@11.0.5)
+        specifier: ^1.25.0
+        version: 1.25.0(@scrider/delta@1.1.0)(jsdom@25.0.1(supports-color@7.2.0))(remark-gfm@4.0.1(supports-color@7.2.0))(remark-math@6.0.0(supports-color@7.2.0))(remark-parse@11.0.0(supports-color@7.2.0))(remark-stringify@11.0.0)(unified@11.0.5)
       '@types/node':
         specifier: ^25.2.3
         version: 25.9.9
@@ -644,8 +644,8 @@ packages:
     resolution: {integrity: sha512-QPwWtmpGlRusyKO77uTU1kzKTR69jhJt9kVdgSx6OKoJLVuOmGZHGNhv5EHxuDOej6iCDywrwWJI+QnF4u/xug==}
     engines: {node: '>=18.0.0'}
 
-  '@scrider/formatter@1.24.0':
-    resolution: {integrity: sha512-Axuqp49mjwyQop2nr3PGBtYV1MuGzbFK0AE01VNmZQlcK1VTygtuXrnrRMchrisYMjkGI4HWCz+O3VLDQo0CSQ==}
+  '@scrider/formatter@1.25.0':
+    resolution: {integrity: sha512-bw5sFUb6OWCmvd8XyW2SSUVZOPiHeJpmSnpENHJL9R+as+Wr018wcOJbsJ3zBLVPGqmzed6rWmAgmhjOmjcSZw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@scrider/delta': ^1.0.0
@@ -2337,7 +2337,7 @@ snapshots:
 
   '@scrider/delta@1.1.0': {}
 
-  '@scrider/formatter@1.24.0(@scrider/delta@1.1.0)(jsdom@25.0.1(supports-color@7.2.0))(remark-gfm@4.0.1(supports-color@7.2.0))(remark-math@6.0.0(supports-color@7.2.0))(remark-parse@11.0.0(supports-color@7.2.0))(remark-stringify@11.0.0)(unified@11.0.5)':
+  '@scrider/formatter@1.25.0(@scrider/delta@1.1.0)(jsdom@25.0.1(supports-color@7.2.0))(remark-gfm@4.0.1(supports-color@7.2.0))(remark-math@6.0.0(supports-color@7.2.0))(remark-parse@11.0.0(supports-color@7.2.0))(remark-stringify@11.0.0)(unified@11.0.5)':
     dependencies:
       '@scrider/delta': 1.1.0
     optionalDependencies:
